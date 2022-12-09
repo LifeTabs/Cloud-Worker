@@ -1,0 +1,9 @@
+name = "lifetab-worker"
+main = "src/index.js"
+compatibility_date = "2022-12-08"
+account_id = "xxx" # <- The account id bucker R2 Cloudflare
+
+[[r2_buckets]]
+binding = 'wallpapers'
+bucket_name = 'wallpapers'
+preview_bucket_name='wallpapers-dev'
