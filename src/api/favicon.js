@@ -16,6 +16,7 @@ const addFavicon = {
 
   },
   response_failed,
+  response_success,
   async save_favicon (url) {
     const res = await fetch(url).then((res) => {
       return res.arrayBuffer()
@@ -38,8 +39,8 @@ const deleteFavicon = {
   ctx: null,
   async fetch(req, res, ctx) {
     this.ctx = ctx
-    if(req.body.id) {
-      const favicon = await this.delete_favicon(req.body.id)
+    if(req.query.id) {
+      const favicon = await this.delete_favicon(req.query.id)
       return {
         body: response_success(favicon)
       }
@@ -49,6 +50,8 @@ const deleteFavicon = {
       body: this.response_failed("MISSING_PARAM")
     }
   },
+  response_failed,
+  response_success,
   async delete_favicon (hash) {
     return this._delete_from_worker(hash)
   },
