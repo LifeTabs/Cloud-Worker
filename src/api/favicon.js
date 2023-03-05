@@ -1,5 +1,5 @@
 import { response_failed, response_success } from "../utils/response";
-export default {
+const addFavicon = {
   ctx: null,
   async fetch(req, res, ctx) {
     this.ctx = ctx
@@ -32,4 +32,35 @@ export default {
       id: hash,
     }
   }
+}
+
+const deleteFavicon = {
+  ctx: null,
+  async fetch(req, res, ctx) {
+    this.ctx = ctx
+    if(req.body.id) {
+      const favicon = await this.delete_favicon(req.body.id)
+      return {
+        body: response_success(favicon)
+      }
+    }
+    return { 
+      status: 400,
+      body: this.response_failed("MISSING_PARAM")
+    }
+  },
+  async delete_favicon (hash) {
+    return this._delete_from_worker(hash)
+  },
+  async _delete_from_worker(hash) {
+    await this.ctx.favicon.delete(hash)
+    return {
+      id: hash
+    }
+  }
+}
+
+export {
+  addFavicon,
+  deleteFavicon,
 }

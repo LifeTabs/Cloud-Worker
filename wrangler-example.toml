@@ -3,7 +3,15 @@ main = "src/index.js"
 compatibility_date = "2022-12-08"
 account_id = "xxx" # <- The account id bucker R2 Cloudflare
 
+[vars]
+KEY_PAIR_BACKEND = "YOURKEY_WILL_PAIR_WITH_BACKEND"
+
 [[r2_buckets]]
 binding = 'wallpapers'
 bucket_name = 'wallpapers'
 preview_bucket_name='wallpapers-dev'
+
+[[r2_buckets]]
+binding = 'favicon'
+bucket_name = 'favicon'
+preview_bucket_name='favicon-dev'
