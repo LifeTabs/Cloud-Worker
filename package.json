@@ -8,5 +8,8 @@
   "scripts": {
     "start": "wrangler dev",
     "deploy": "wrangler publish"
+  },
+  "dependencies": {
+    "@tsndr/cloudflare-worker-router": "^2.3.1"
   }
 }
