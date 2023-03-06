@@ -63,7 +63,41 @@ const deleteFavicon = {
   }
 }
 
+const getFavicon = {
+  MAX_AGE_CACHE: 60*60*24*30, // 1 month = 2592000 s
+  ctx: null,
+  async fetch (req, res, ctx) {
+    this.ctx = ctx
+    const id = req.params.id
+    const result = await this._get_favicon(id)
+    if(result) {
+      return {
+        raw: result
+      }
+    }
+    return {
+      status: 404,
+      body: this.response_failed("RESOURCE_MISSING")
+    }
+  },
+  response_failed,
+  response_success,
+  async _get_favicon(id) {
+    const object = await this.ctx.favicon.get(id)
+    if(object) {
+      const headers = new Headers()
+      headers.set("Pragma", "public");
+      headers.set("Cache-Control", `max-age=${this.MAX_AGE_CACHE}`);
+      headers.set("Etag", object.httpEtag)
+      return new Response(object.body, {
+        headers,
+      })
+    }
+  }
+}
+
 export {
   addFavicon,
   deleteFavicon,
+  getFavicon,
 }
