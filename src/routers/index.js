@@ -41,7 +41,7 @@ router.delete("/api/favicon", isAuthenticated, async ({ req, res, env }) => {
   res.webSocket = controller.webSocket
 })
 
-router.get("/favicon/:id", async ({ req, res, env }) => {
+router.get("/resources/favicon/:id", async ({ req, res, env }) => {
   const controller = await getFavicon.fetch(req, res, env)
   res.status = controller.status
   res.body = controller.body
